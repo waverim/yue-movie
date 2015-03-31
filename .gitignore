@@ -1,0 +1,11 @@
+# Node
+./node_modules
+
+# browserify
+./js/bundle.js
+
+# Emacs
+*~
+
+# Mac
+.DS_Store/
