@@ -1,11 +1,14 @@
 # Node
-./node_modules
+node_modules/
 
 # browserify
-./js/bundle.js
+js/bundle.js
 
 # Emacs
 *~
 
 # Mac
-.DS_Store/
+.DS_Store
+
+# NPM
+npm-debug.log
