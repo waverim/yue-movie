@@ -3,10 +3,18 @@ var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
 var React = require('react');
-var MovieList = require('../components/movie_list')
+var MovieList = require('../components/movieList')
 var MovieDetail = require('../components/movieDetail');
 
-var _movie = {};
+var _movies = {};
+
+function _addMovie (movies) {
+    movies.forEach(function (movie) {
+        if (!_movies[movie.id]) {
+            _movies[movie.id] = movie;
+        }
+    })
+}
 
 var IndexStore = assign({}, EventEmitter.prototype, {
     emitChange: function () {

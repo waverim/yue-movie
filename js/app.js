@@ -1,6 +1,6 @@
 var React = require('react');
 var Header = require('./components/header');
-var MovieBox = require('./components/movie_list');
+var MovieBox = require('./components/movieList');
 var MovieDetail = require('./components/movieDetail');
 
 React.render(

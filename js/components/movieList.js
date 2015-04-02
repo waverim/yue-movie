@@ -2,6 +2,8 @@ var React = require('react');
 var IndexActions = require('../action/IndexAction');
 var AppStore = require('../stores/IndexStore');
 
+// var mlist = require('../testCase');
+
 var MovieBox = React.createClass({
     loadMovieFromServer: function() {
         $.ajax({
@@ -23,6 +25,7 @@ var MovieBox = React.createClass({
         setInterval(this.loadMovieFromServer, 100000);
     },
     render: function () {
+        // console.log(mlist);
         return (
             <MovieList data={this.state.data} />
         );
