@@ -2,30 +2,11 @@ var React = require('react');
 var IndexActions = require('../action/IndexAction');
 var AppStore = require('../stores/IndexStore');
 
-// var mlist = require('../testCase');
-
 var MovieBox = React.createClass({
-    loadMovieFromServer: function() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
-    },
     getInitialState: function() {
-        return {data: []};
-    },
-    componentDidMount: function() {
-        this.loadMovieFromServer();
-        setInterval(this.loadMovieFromServer, 100000);
+        return {data: AppStore.getAll() };
     },
     render: function () {
-        // console.log(mlist);
         return (
             <MovieList data={this.state.data} />
         );
@@ -49,7 +30,7 @@ var MovieList = React.createClass({
 
 var Movie = React.createClass({
     handleClick: function () {
-        IndexActions.showItem(this.props.data.movie_id);
+        IndexActions.getMovie(this.props.data.movie_id)
     },
     render: function () {
         var style = {
@@ -61,18 +42,16 @@ var Movie = React.createClass({
             }
         };
         var movie_data = this.props.data;
+        var url = "#/movie/" + movie_data.movie_id;
         return (
+            <a href={url}>
             <li style={style.li} name={movie_data.movie_id} onClick={this.handleClick}>
                 <h2>{movie_data.movie_title}</h2>
                 <p>豆瓣评分：{movie_data.movie_score}</p>
             </li>
+            </a>
         );
     }
 })
-
-// React.render(
-//     <MovieBox url="movie_list.json" />,
-//     document.getElementById('content')
-// );
 
 module.exports = MovieBox;

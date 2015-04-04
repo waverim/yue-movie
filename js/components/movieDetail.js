@@ -1,29 +1,11 @@
 var React = require('react');
+var AppStore = require('../stores/IndexStore');
 
 var movieDetail = React.createClass({
-    loadMovieFromServer: function() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            success: function(data) {
-                for (var i in data) {
-                    if (data[i].movie_id == this.props.movieId) {
-                        this.setState({data: data[i]});
-                        break;
-                    }
-                }
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
-    },
     getInitialState: function() {
-        return {data: {}};
-    },
-    componentDidMount: function() {
-        this.loadMovieFromServer();
-        setInterval(this.loadMovieFromServer, 100000);
+        var url = window.location.href;
+        var movie_id = url.match(/\d+$/g)[0];
+        return {data: AppStore.getMovie(movie_id)};
     },
     render: function() {
         var movie_data = this.state.data;
