@@ -1,5 +1,5 @@
 var React = require('react');
-var IndexActions = require('../action/IndexAction');
+var AppAction = require('../action/AppAction');
 var AppStore = require('../stores/IndexStore');
 
 var Header = React.createClass({
@@ -20,11 +20,8 @@ var Header = React.createClass({
 });
 
 var Back = React.createClass({
-    handleClick: function () {
-        IndexActions.backToIndex();
-    },
     render: function () {
-        return (<a onClick={this.handleClick}>返回</a>);
+        return (<a href="#/">返回</a>);
     }
 });
 

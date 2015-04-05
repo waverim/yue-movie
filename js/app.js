@@ -2,6 +2,7 @@ var React = require('react');
 var Header = require('./components/header');
 var MovieBox = require('./components/movieList');
 var MovieDetail = require('./components/movieDetail');
+var Login = require('./components/login');
 
 var Router = require('react-router');
 var DefaultRoute = Router.DefaultRoute;
@@ -22,6 +23,7 @@ var App = React.createClass({
 var routes = (
     <Route name="app" path="/" handler={App}>
         <Route path="movie/:movieId" handler={MovieDetail}/>
+        <Route path="login" handler={Login}/>
         <DefaultRoute handler={MovieBox} />
     </Route>
 );

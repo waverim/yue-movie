@@ -1,5 +1,5 @@
 var React = require('react');
-var IndexActions = require('../action/IndexAction');
+var AppAction = require('../action/AppAction');
 var AppStore = require('../stores/IndexStore');
 
 var MovieBox = React.createClass({
@@ -30,7 +30,7 @@ var MovieList = React.createClass({
 
 var Movie = React.createClass({
     handleClick: function () {
-        IndexActions.getMovie(this.props.data.movie_id)
+        AppAction.getMovie(this.props.data.movie_id)
     },
     render: function () {
         var style = {
