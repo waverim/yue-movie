@@ -34,6 +34,7 @@ var LoginBox = React.createClass({
     },
     loginReturn: function () {
         var user_id = IndexStore.getUserId();
+        console.log(user_id)
         if (user_id > 0) {
             window.location.href = "/#/"; 
         }

@@ -17,7 +17,7 @@ var _users = [
     }
 ];
 
-var _user = 0;
+var _user_id = 0;
 
 // function _addMovie (movies) {
 //     movies.forEach(function (movie) {
@@ -56,20 +56,16 @@ var IndexStore = assign({}, EventEmitter.prototype, {
         return _movies;
     },
     getMovie: function (id) {
-        for (var i in _movies) {
-            if (_movies[i].movie_id == id) {
-                return _movies[i]
-            }
-        }
+        return _movies.filter(function (movie) {
+            return movie.movie_id == id;
+        })[0];
     },
 
     login: function (username, password) {
-        for (var i in _users) {
-            if (_users[i].username == username && _users[i].password == password) {
-                _user_id = _users[i].id;
-                break;
-            }
-        }
+        var user = _users.filter(function (u) {
+            return u.username == username && u.password == password;
+        })[0] || {id: 0};
+        _user_id = user.id;
     },
     getUserId: function () {
         return _user_id;
