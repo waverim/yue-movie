@@ -29,9 +29,6 @@ var MovieList = React.createClass({
 })
 
 var Movie = React.createClass({
-    handleClick: function () {
-        AppAction.getMovie(this.props.data.movie_id)
-    },
     render: function () {
         var style = {
             li:  {
@@ -45,7 +42,7 @@ var Movie = React.createClass({
         var url = "#/movie/" + movie_data.movie_id;
         return (
             <a href={url}>
-            <li style={style.li} name={movie_data.movie_id} onClick={this.handleClick}>
+            <li style={style.li} name={movie_data.movie_id}>
                 <h2>{movie_data.movie_title}</h2>
                 <p>豆瓣评分：{movie_data.movie_score}</p>
             </li>

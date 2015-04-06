@@ -8,37 +8,35 @@ var _users = [
     {
         id: 1,
         username: 'aaa',
-        password: '123'
+        password: '123',
+        want_see: [25858785]
     },
     {
         id: 2,
         username: 'bbb',
-        password: '123'
+        password: '123',
+        want_see: []
     }
 ];
 
+var _movies_users = [
+    {id: 25858785,  users:[1,2]},
+    {id: 11026735,  users:[]},
+    {id: 5154799,   users:[]},
+    {id: 2998373,   users:[]},
+    {id: 3993588,   users:[]},
+    {id: 25870236,  users:[]},
+    {id: 24405378,  users:[]},
+    {id: 25835293,  users:[]},
+    {id: 4154632,   users:[]},
+    {id: 26336301,  users:[]},
+    {id: 6875263,   users:[]},
+    {id: 25870074,  users:[]},
+    {id: 22994771,  users:[]},
+    {id: 20277632,  users:[]}
+];
+
 var _user_id = 0;
-
-// function _addMovie (movies) {
-//     movies.forEach(function (movie) {
-//         if (!_movies[movie.id]) {
-//             _movies[movie.id] = movie;
-//         }
-//     })
-// }
-
-// function _getMovieFromServer (url, callback) {
-//     $.ajax({
-//         url: url,
-//         dataType: 'json',
-//         success: function(data) {
-//             callback(data);
-//         }.bind(this),
-//         error: function(xhr, status, err) {
-//             console.error(this.props.url, status, err.toString());
-//         }.bind(this)
-//     });
-// }
 
 var IndexStore = assign({}, EventEmitter.prototype, {
     emitChange: function() {
@@ -69,16 +67,48 @@ var IndexStore = assign({}, EventEmitter.prototype, {
     },
     getUserId: function () {
         return _user_id;
+    },
+    getUserInfo: function (id) {
+        if (id == 0)
+            return {}
+        else {
+            return _users.filter(function (u) {
+                return u.id == id;
+            })[0];
+        }
+    },
+
+    wantSee: function (user_id, movie_id) {
+        var user = this.getUserInfo(user_id);
+        user.want_see.push(movie_id);
+
+        var movies_users = _movies_users.filter(function (mu) {
+            return mu.id == movie_id;
+        })
+        movies_users.users.push(user_id);
+    },
+    isWantSee: function (user_id, movie_id) {
+        var user = this.getUserInfo(user_id);
+        for (var i in user.want_see) {
+            if (user.want_see[i] == movie_id)
+                return true;
+        }
+        return false;
+    },
+    getWantSeeList: function (movie_id) {
+        return _movies_users.filter(function (mu) {
+            return mu.id == movie_id;
+        })[0].users;
     }
 });
 
 AppDispatcher.register(function (payload) {
     switch (payload.actionType) {
-        case "GET_MOVIE":
-            IndexStore.getMovie(payload.id);
-            break;
         case "LOGIN":
             IndexStore.login(payload.username, payload.password);
+            break;
+        case "WANT_SEE":
+            IndexStore.wantSee(payload.user_id, payload.movie_id);
             break;
     }
 

@@ -7,6 +7,14 @@ var IndexActions = {
             username: username,
             password: password
         })
+    },
+
+    wantSee: function (user_id, movie_id) {
+        AppDispatcher.dispatch({
+            actionType: 'WANT_SEE',
+            user_id: user_id,
+            movie_id: movie_id
+        })
     }
 }
 

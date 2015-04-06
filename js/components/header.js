@@ -38,13 +38,8 @@ var Title = React.createClass({
 
 var Menu = React.createClass({
     render: function () {
-        return (<a>个人中心</a>);
+        return (<a href="#/login">个人中心</a>);
     }
 });
-
-// React.render(
-//     <Header />,
-//     document.getElementById('header')
-// );
 
 module.exports = Header;
